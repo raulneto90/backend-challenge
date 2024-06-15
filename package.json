@@ -1,0 +1,21 @@
+{
+  "name": "backend-challenge",
+  "version": "1.0.0",
+  "description": "Desafio backend com NodeJS e Fastify",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^9.5.0",
+    "prisma": "^5.15.0",
+    "tsx": "^4.15.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "fastify": "^4.28.0"
+  }
+}
