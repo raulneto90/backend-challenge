@@ -6,7 +6,7 @@ import { AuthenticateUserController } from '../controllers/create-user-token-con
 const createUserController = new CreateUserController();
 const authenticateUserController = new AuthenticateUserController();
 
-export async function usersRoutes(fastify: FastifyInstance) {
+export async function usersRouter(fastify: FastifyInstance) {
   fastify.post('/auth/register', createUserController.handle);
   fastify.post('/auth/login', authenticateUserController.handle);
 }
