@@ -1,4 +1,6 @@
 import { inject, injectable } from 'tsyringe';
+import { hashSync } from 'bcryptjs';
+
 import { UsersRepository } from '../domain/repositories/users-repository';
 import { User } from '../domain/entities/User';
 
@@ -20,6 +22,9 @@ export class CreateUserUseCase {
     if (userExists) {
       throw new Error('User already exists');
     }
+
+    const userPassword = hashSync(data.password, 10);
+    data.password = userPassword;
 
     const newUser = new User(data);
 
