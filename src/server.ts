@@ -1,5 +1,5 @@
 import { app } from './app';
-import { env } from './env/env';
+import { env } from './config/env/env';
 
 const bootstrap = async () => {
   await app.listen({

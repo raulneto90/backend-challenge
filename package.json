@@ -25,6 +25,9 @@
     "zod": "^3.23.8"
   },
   "dependencies": {
-    "fastify": "^4.28.0"
+    "@prisma/client": "^5.15.0",
+    "fastify": "^4.28.0",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.8.0"
   }
 }
