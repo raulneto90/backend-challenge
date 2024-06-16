@@ -3,6 +3,7 @@ import { hashSync } from 'bcryptjs';
 
 import { UsersRepository } from '../domain/repositories/users-repository';
 import { User } from '../domain/entities/User';
+import { AppError } from '../../common/application/errors/ErrorHandler';
 
 interface RequestParams {
   username: string;
@@ -20,7 +21,7 @@ export class CreateUserUseCase {
     const userExists = await this.usersRepository.findByUsername(data.username);
 
     if (userExists) {
-      throw new Error('User already exists');
+      throw new AppError('User already exists');
     }
 
     const userPassword = hashSync(data.password, 10);

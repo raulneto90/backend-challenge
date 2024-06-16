@@ -9,3 +9,14 @@ export const app = fastify({
 });
 
 app.register(usersRoutes);
+
+app.setErrorHandler((error, _, response) => {
+  const formattedError = {
+    statusCode: error.statusCode || 500,
+    message: error.message,
+  };
+
+  return response.status(formattedError.statusCode).send({
+    message: formattedError.message,
+  });
+});

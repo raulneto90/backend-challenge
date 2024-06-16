@@ -4,6 +4,7 @@ import { compareSync } from 'bcryptjs';
 
 import { UsersRepository } from '../domain/repositories/users-repository';
 import { env } from '../../../config/env/env';
+import { AppError } from '../../common/application/errors/ErrorHandler';
 
 interface RequestParams {
   username: string;
@@ -21,13 +22,13 @@ export class AuthenticateUserUseCase {
     const user = await this.usersRepository.findByUsername(data.username);
 
     if (!user) {
-      throw new Error('User not found');
+      throw new AppError('User not found', 404);
     }
 
     const passwordMatch = compareSync(data.password, user.password);
 
     if (!passwordMatch) {
-      throw new Error('Invalid credentials');
+      throw new AppError('Invalid credentials');
     }
 
     const token = sign({}, env.JWT_SECRET, {
