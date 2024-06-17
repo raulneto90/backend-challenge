@@ -14,7 +14,7 @@ const updateTaskController = new UpdateTaskController();
 const listTasksController = new ListTasksController();
 
 export async function tasksRouter(fastify: FastifyInstance) {
-  fastify.register(ensureAuthentication);
+  fastify.addHook('onRequest', ensureAuthentication);
   fastify.post('/tasks', createTaskController.handle);
   fastify.get('/tasks/:id', findTaskByIdController.handle);
   fastify.delete('/tasks/:id', deleteTaskController.handle);
