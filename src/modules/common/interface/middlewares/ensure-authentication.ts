@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import { validateToken } from '../../utils/validate-token';
+import { verify } from 'jsonwebtoken';
+import { env } from '../../../../config/env/env';
 
 export const ensureAuthentication: FastifyPluginAsync = async (
   fastify: FastifyInstance,
@@ -25,7 +26,7 @@ export const ensureAuthentication: FastifyPluginAsync = async (
     const token = tokenMatch[1];
 
     try {
-      await validateToken(token);
+      verify(token, env.JWT_SECRET);
     } catch (error) {
       response.code(401).send({ message: 'Token inválido' });
     }
