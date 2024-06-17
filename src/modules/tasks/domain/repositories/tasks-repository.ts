@@ -8,7 +8,7 @@ export interface PaginationResults<T> {
 export interface TasksRepository {
   create(data: Task): Promise<Task>;
   findAll(page: number, limit: number): Promise<PaginationResults<Task>>;
-  findById(id: string): Promise<Task | null>;
+  findById(id: string): Promise<Task | undefined>;
   delete(id: string): Promise<void>;
   update(
     id: string,

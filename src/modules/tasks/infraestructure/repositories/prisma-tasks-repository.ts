@@ -42,7 +42,7 @@ export class PrismaTasksRepository implements TasksRepository {
     };
   }
 
-  async findById(id: string): Promise<Task | null> {
+  async findById(id: string): Promise<Task | undefined> {
     const task = await prismaConnection.task.findUnique({
       where: {
         id,
@@ -50,7 +50,7 @@ export class PrismaTasksRepository implements TasksRepository {
     });
 
     if (!task) {
-      return null;
+      return undefined;
     }
 
     return TaskMapper.toDomain(task);

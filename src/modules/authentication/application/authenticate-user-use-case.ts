@@ -22,13 +22,13 @@ export class AuthenticateUserUseCase {
     const user = await this.usersRepository.findByUsername(data.username);
 
     if (!user) {
-      throw new AppError('User not found', 404);
+      throw new AppError('Usuário e/ou senha inválidos');
     }
 
     const passwordMatch = compareSync(data.password, user.password);
 
     if (!passwordMatch) {
-      throw new AppError('Invalid credentials');
+      throw new AppError('Usuário e/ou senha inválidos');
     }
 
     const token = sign({}, env.JWT_SECRET, {

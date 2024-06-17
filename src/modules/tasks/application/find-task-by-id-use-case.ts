@@ -9,7 +9,7 @@ export class FindTaskByIdUseCase {
     private readonly tasksRepository: TasksRepository,
   ) {}
 
-  async execute(id: string): Promise<Task | null> {
+  async execute(id: string): Promise<Task | undefined> {
     return this.tasksRepository.findById(id);
   }
 }

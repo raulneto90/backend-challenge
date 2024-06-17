@@ -1,0 +1,605 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "h49d2npjbhjxc"
+  },
+  "info": {
+    "title": "Tasks Api",
+    "version": "1.0",
+    "summary": "Api de gerenciamento de Tarefas",
+    "description": "Projeto de automatização de tarefas"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "server"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Criar um usuário",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "User already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "User already exists"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-auth-register",
+        "x-stoplight": {
+          "id": "6gq6jq7kmirqy"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "Example 1": {
+                    "username": "raulneto90",
+                    "password": "123456"
+                  }
+                },
+                "required": ["username", "password"],
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Cria um usuário a partir do username e password informados"
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Autenticar um usuário",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg2NDM1NjIsImV4cCI6MTcxODcyOTk2Miwic3ViIjoiMDMwNDM1MGMtZTc3Zi00ODkzLWE0MzItMGRlYzVlZjU0ODYyIn0.i9-nOq-_FmB0eNg0x7KA5S--hRspLRm6A9p3a0dSiZI"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "Usuário e/ou senha inválidos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-auth-login",
+        "x-stoplight": {
+          "id": "bypyi51fuuc16"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "username": "raulneto90",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Autentica um usuário existente"
+      }
+    },
+    "/tasks": {
+      "get": {
+        "summary": "Listagem de tarefas",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "totalTasks": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "tasks": [
+                        {
+                          "id": "e1cbd40a-a53e-4ff6-916d-a3f0f6c6f56e",
+                          "title": "Some task",
+                          "description": "Some task description here",
+                          "status": "pendente",
+                          "createdAt": "2024-06-17T17:12:32.165Z",
+                          "updatedAt": "2024-06-17T17:12:32.165Z"
+                        }
+                      ],
+                      "pagination": {
+                        "page": 1,
+                        "limit": 10,
+                        "totalPages": 1,
+                        "totalTasks": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-tasks",
+        "x-stoplight": {
+          "id": "uvnopryasg1cq"
+        },
+        "description": "Lista todas as tarefas criadas",
+        "requestBody": {
+          "content": {}
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Número da página"
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Limite de dados"
+          }
+        ]
+      },
+      "post": {
+        "summary": "Criar uma tarefa",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "id": "e1cbd40a-a53e-4ff6-916d-a3f0f6c6f56e",
+                      "title": "Some task",
+                      "description": "Some task description here",
+                      "status": "pendente",
+                      "createdAt": "2024-06-17T17:12:32.165Z",
+                      "updatedAt": "2024-06-17T17:12:32.165Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "post-tasks",
+        "x-stoplight": {
+          "id": "j1vrcdu2ahoyl"
+        },
+        "description": "Realiza a criação de uma tarefa",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "title": "Some task",
+                    "description": "Some task description here",
+                    "status": "pendente"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Id da tarefa"
+        }
+      ],
+      "get": {
+        "summary": "Buscar uma tarefa pelo id",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "id": "42171524-cf50-4c54-869f-8867f6291a49",
+                      "title": "Some task",
+                      "description": "Some task description here",
+                      "status": "pendente",
+                      "createdAt": "2024-06-16T19:46:26.051Z",
+                      "updatedAt": "2024-06-16T19:46:26.051Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "operationId": "get-tasks-id",
+        "x-stoplight": {
+          "id": "2lkoc6z358llk"
+        },
+        "description": "Busca uma tarefa pelo id"
+      },
+      "delete": {
+        "summary": "Deletar tarefa pelo id",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "Tarefa deletada com sucesso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "Tarefa deletada com sucesso"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "delete-tasks-id",
+        "x-stoplight": {
+          "id": "ajbyjnn381erk"
+        },
+        "description": "Deleta uma tarefa pelo id informado"
+      },
+      "put": {
+        "summary": "Atualizar tarefa pelo id",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "id": "42171524-cf50-4c54-869f-8867f6291a49",
+                      "title": "Some task",
+                      "description": "Some task description here",
+                      "status": "em progresso",
+                      "createdAt": "2024-06-16T19:46:26.051Z",
+                      "updatedAt": "2024-06-17T17:00:56.330Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "message": "Tarefa deletada com sucesso"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "put-tasks-id",
+        "x-stoplight": {
+          "id": "w8mclunojug4q"
+        },
+        "description": "Atualiza uma tarefa pelo id informado",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "x-examples": {
+                  "Example 1": {
+                    "title": "Some task",
+                    "description": "Some task description here",
+                    "status": "em progresso"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  }
+}

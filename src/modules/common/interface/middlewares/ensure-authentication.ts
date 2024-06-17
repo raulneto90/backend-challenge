@@ -8,8 +8,6 @@ export const ensureAuthentication = async (
 ) => {
   const authHeader = request.headers.authorization;
 
-  console.log({ authHeader });
-
   if (!authHeader) {
     return response.status(401).send({
       message: 'Token não informado',
