@@ -1,6 +1,9 @@
 import { prismaConnection } from '../../../../config/database/prisma-connection';
 import { Task } from '../../domain/entities/Task';
-import { TasksRepository } from '../../domain/repositories/tasks-repository';
+import {
+  PaginationResults,
+  TasksRepository,
+} from '../../domain/repositories/tasks-repository';
 import { TaskMapper } from '../mappers/task-mapper';
 
 export class PrismaTasksRepository implements TasksRepository {
@@ -12,14 +15,31 @@ export class PrismaTasksRepository implements TasksRepository {
     return TaskMapper.toDomain(task);
   }
 
-  async findAll(): Promise<Task[] | null> {
-    const tasks = await prismaConnection.task.findMany();
+  async findAll(page: number, limit: number): Promise<PaginationResults<Task>> {
+    const offset = (page - 1) * limit;
+
+    const [tasks, totalTasks] = await Promise.all([
+      prismaConnection.task.findMany({
+        skip: offset,
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      prismaConnection.task.count(),
+    ]);
 
     if (!tasks.length) {
-      return [];
+      return {
+        total: 0,
+        results: [],
+      };
     }
 
-    return tasks.map(task => TaskMapper.toDomain(task));
+    return {
+      total: totalTasks,
+      results: tasks.map(TaskMapper.toDomain),
+    };
   }
 
   async findById(id: string): Promise<Task | null> {

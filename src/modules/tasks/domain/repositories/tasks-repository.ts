@@ -1,8 +1,13 @@
 import { Task } from '../entities/Task';
 
+export interface PaginationResults<T> {
+  results: T[];
+  total: number;
+}
+
 export interface TasksRepository {
   create(data: Task): Promise<Task>;
-  findAll(): Promise<Task[] | null>;
+  findAll(page: number, limit: number): Promise<PaginationResults<Task>>;
   findById(id: string): Promise<Task | null>;
   delete(id: string): Promise<void>;
   update(
