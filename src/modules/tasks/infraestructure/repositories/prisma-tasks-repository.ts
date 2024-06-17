@@ -47,12 +47,17 @@ export class PrismaTasksRepository implements TasksRepository {
   async update(
     id: string,
     data: Pick<Task, 'title' | 'description' | 'status'>,
-  ): Promise<void> {
-    await prismaConnection.task.update({
+  ): Promise<Task> {
+    const updatedTask = await prismaConnection.task.update({
       where: {
         id,
       },
-      data,
+      data: {
+        ...data,
+        updatedAt: new Date(),
+      },
     });
+
+    return TaskMapper.toDomain(updatedTask);
   }
 }

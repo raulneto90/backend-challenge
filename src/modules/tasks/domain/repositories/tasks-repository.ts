@@ -8,5 +8,5 @@ export interface TasksRepository {
   update(
     id: string,
     data: Pick<Task, 'title' | 'description' | 'status'>,
-  ): Promise<void>;
+  ): Promise<Task>;
 }
