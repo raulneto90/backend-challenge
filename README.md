@@ -1,37 +1,6 @@
 # Desafio Técnico para Vaga Backend - Node.js
 
-## Objetivo
-
-Desenvolver uma API para gerenciamento de tarefas (To-Do List) utilizando Node.js, Fastify, TypeScript e PostgreSQL, seguindo os princípios de Arquitetura Limpa (Clean Architecture).
-
-## Descrição
-
-Você deve criar uma API RESTful que permita criar, ler, atualizar e deletar tarefas. As tarefas devem conter as seguintes informações:
-
-- ID (UUID)
-- Título (string)
-- Descrição (string)
-- Status (enum: 'pendente', 'em progresso', 'concluído')
-- Data de criação (timestamp)
-- Data de atualização (timestamp)
-
-Além disso, a API deve implementar autenticação utilizando JWT (JSON Web Token) e a criação de senhas deve ser feita usando a biblioteca `bcryptjs`.
-
-## Requisitos
-
-- Utilizar Node.js com Fastify
-- Escrever o código em TypeScript
-- Usar PostgreSQL para armazenamento dos dados
-- Seguir os princípios de Clean Architecture
-- Implementar autenticação JWT
-- Utilizar a biblioteca `bcryptjs` para gerenciamento de senhas
-
-## Diferencial
-- Escrever testes unitários com JEST
-
 ## Funcionalidades
-
-A API deve fornecer os seguintes endpoints:
 
 ### Registro de usuário
 
@@ -113,13 +82,13 @@ A API deve fornecer os seguintes endpoints:
         "status": "pendente",
         "createdAt": "timestamp",
         "updatedAt": "timestamp"
-      },
+      }
     ],
     "pagination": {
-        "page": 1,
-        "limit": 10,
-        "totalPages": 1,
-        "totalTasks": 1
+      "page": 1,
+      "limit": 10,
+      "totalPages": 1,
+      "totalTasks": 1
     }
   }
   ```
@@ -178,25 +147,38 @@ A API deve fornecer os seguintes endpoints:
   }
   ```
 
-## Estrutura do Projeto
+## Como baixar e utilizar o projeto
 
-Organize o projeto seguindo os princípios de Clean Architecture.
+Em seu terminal, realize o clone do projeto:
 
-## Critérios de Avaliação
+```bash
+git clone git@github.com:raulneto90/backend-challenge.git
+```
 
-- **Funcionalidade**: A API deve atender a todos os requisitos funcionais.
-- **Código**: Clareza, organização, uso adequado de TypeScript e adoção de boas práticas de codificação.
-- **Arquitetura**: Aderência aos princípios de Clean Architecture.
-- **Documentação**: Qualidade da documentação da API.
+Instale as dependencias
 
-## Como Enviar
+```bash
+cd backend-challenge
+npm install
+```
 
-1. Faça um fork deste repositório.
-2. Implemente a solução no seu fork.
-3. Envie um email para: `contato@wecodecds.com` com o link do seu repositório.
+Informe as seguintes variáveis ambiente:
 
-Você terá 72 horas para entregar o desafio, contadas a partir da entrega deste desafio a você.
+```
+NODE_ENV=
+DATABASE_URL=
+PORT=
+JWT_SECRET=
+```
 
-> Inteligência é a capacidade de se adaptar a mudança - Stephen Hawking
+Execute as migrations:
 
-Boa sorte!
+```bash
+npx prisma migrate dev
+```
+
+Execute o projeto:
+
+```bash
+npm run dev
+```
